@@ -10,7 +10,12 @@ app.use(express.static("public"));
 
 app.get("/home", (req, res) => {
     req.app.render("home/Home", {}, (err, html)=>{
-        res.end(html);
+        if (err) {
+            console.error(err);
+            res.status(500).send("Error rendering the page");
+        } else {
+            res.end(html);
+        }
     });
 });
 
